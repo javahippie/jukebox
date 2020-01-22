@@ -8,6 +8,4 @@ public record Person(
         String firstName,
         String lastName,
         LocalDate birthDate,
-        int heightInCentimeters){
-
-        }
+        int heightInCentimeters){}
