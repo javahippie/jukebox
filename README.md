@@ -95,3 +95,4 @@ public class PersonBuilder {
 }
 ```
 
+If the Maven multimodule project is built with `mvn clean package`, the example application can be run with the command `java --enable-preview -jar testtool/target/testtool-1.0-SNAPSHOT.jar` from its root

@@ -23,12 +23,6 @@ public class TestGround {
                 .withPointsPlayer2(20)
                 .build();
 
-        var game2 = new Game(new Person("Rüdiger", "Behrens", LocalDate.of(1982, 3, 17), 186)),
-                             new Person("Frank", "Meier", LocalDate.of(1990, 2, 2), 170)),
-                             10,
-                             20);
-
-
         System.out.println(game);
     }
 }
