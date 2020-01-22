@@ -11,6 +11,7 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -42,6 +43,12 @@ public class RecordBuilder extends AbstractProcessor {
 
         JavaFileObject builderFile = processingEnv.getFiler().createSourceFile(packageName + "Builder");
 
+        List<Element> recordComponents = record.getEnclosedElements()
+                .stream()
+                .filter(element -> element.getKind()
+                        .equals(ElementKind.RECORD_COMPONENT))
+                .collect(Collectors.toList());
+
         try (PrintWriter out = new PrintWriter(builderFile.openWriter())) {
             out.println("package de.javahippie.recordbuilders.testtool;");
             out.println();
@@ -49,37 +56,31 @@ public class RecordBuilder extends AbstractProcessor {
             out.println();
             out.println("public class " + className + " {");
             out.println();
+
+
+            recordComponents.forEach(element -> out.println("   private " + element.asType().toString() + " " + element.getSimpleName() + ";"));
+            out.println();
             out.println("""
                         public static %s builder() {
                             return new %s();
                         }
                     """.formatted(className, className));
-            out.println();
-            out.println("   public " + record.getSimpleName() + " build() {");
-            out.print("       return new " + record.getSimpleName() + "(");
-            out.print(record.getEnclosedElements()
-                    .stream()
-                    .filter(element -> element.getKind()
-                            .equals(ElementKind.RECORD_COMPONENT))
+            out.println("    public " + record.getSimpleName() + " build() {");
+            out.print("        return new " + record.getSimpleName() + "(");
+            out.print(recordComponents.stream()
                     .map(o -> o.getSimpleName())
                     .collect(Collectors.joining(", ")));
             out.println(");");
-            out.println("   }");
+            out.println("    }");
             out.println();
-            record.getEnclosedElements()
-                    .stream()
-                    .filter(element -> element.getKind()
-                            .equals(ElementKind.RECORD_COMPONENT))
+            recordComponents
                     .forEach(component -> {
                         out.println("""
-                                    private %s %s;
-
                                     public %s with%s(%s %s) {
                                         this.%s = %s;
                                         return this;
                                     }
-                                """.formatted(component.asType().toString(),
-                                component.getSimpleName(),
+                                """.formatted(
                                 className,
                                 component.getSimpleName().toString().substring(0, 1).toUpperCase() + component.getSimpleName().toString().substring(1),
                                 component.asType().toString(),
