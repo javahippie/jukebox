@@ -32,16 +32,17 @@ public class RecordBuilder extends AbstractProcessor {
         } catch (IOException ex) {
             return false;
         }
-
-
         return true;
     }
 
-    public void writeSourceFile(Element record) throws IOException {
-        String packageName = record.asType().toString();
-        String className = record.getSimpleName() + "Builder";
+    private void writeSourceFile(Element record) throws IOException {
+        String fqcn = record.asType().toString();
+        int lastDotIndex = fqcn.lastIndexOf('.');
+        String packageName = fqcn.substring(0, lastDotIndex);
 
-        JavaFileObject builderFile = processingEnv.getFiler().createSourceFile(packageName + "Builder");
+        String className = "%sBuilder".formatted(record.getSimpleName());
+
+        JavaFileObject builderFile = processingEnv.getFiler().createSourceFile("%sBuilder".formatted(fqcn));
 
         List<Element> recordComponents = record.getEnclosedElements()
                 .stream()
@@ -50,46 +51,62 @@ public class RecordBuilder extends AbstractProcessor {
                 .collect(Collectors.toList());
 
         try (PrintWriter out = new PrintWriter(builderFile.openWriter())) {
-            out.println("package de.javahippie.recordbuilders.testtool;");
+            out.println("package %s;".formatted(packageName));
             out.println();
-            out.println("import " + record.asType().toString() + ";");
+            out.println("import %s;".formatted(record.asType().toString()));
             out.println();
-            out.println("public class " + className + " {");
+            out.println("public class %s {".formatted(className));
             out.println();
 
+            renderFields(recordComponents, out);
+            renderBuilderInitializer(className, out);
+            renderBuildMethod(record, recordComponents, out);
+            renderBuilderMethods(className, recordComponents, out);
 
-            recordComponents.forEach(element -> out.println("   private " + element.asType().toString() + " " + element.getSimpleName() + ";"));
-            out.println();
-            out.println("""
-                        public static %s builder() {
-                            return new %s();
-                        }
-                    """.formatted(className, className));
-            out.println("    public " + record.getSimpleName() + " build() {");
-            out.print("        return new " + record.getSimpleName() + "(");
-            out.print(recordComponents.stream()
-                    .map(o -> o.getSimpleName())
-                    .collect(Collectors.joining(", ")));
-            out.println(");");
-            out.println("    }");
-            out.println();
-            recordComponents
-                    .forEach(component -> {
-                        out.println("""
-                                    public %s with%s(%s %s) {
-                                        this.%s = %s;
-                                        return this;
-                                    }
-                                """.formatted(
-                                className,
-                                component.getSimpleName().toString().substring(0, 1).toUpperCase() + component.getSimpleName().toString().substring(1),
-                                component.asType().toString(),
-                                component.getSimpleName(),
-                                component.getSimpleName(),
-                                component.getSimpleName()));
-                    });
             out.print("}");
         }
+    }
+
+    private void renderBuilderMethods(String className, List<Element> recordComponents, PrintWriter out) {
+        recordComponents
+                .forEach(component -> {
+                    out.println("""
+                                public %s with%s(%s %s) {
+                                    this.%s = %s;
+                                    return this;
+                                }
+                            """.formatted(
+                            className,
+                            component.getSimpleName().toString().substring(0, 1).toUpperCase() + component.getSimpleName().toString().substring(1),
+                            component.asType().toString(),
+                            component.getSimpleName(),
+                            component.getSimpleName(),
+                            component.getSimpleName()));
+                });
+    }
+
+    private void renderBuildMethod(Element record, List<Element> recordComponents, PrintWriter out) {
+        out.println("    public %s build() {".formatted(record.getSimpleName()));
+        out.print("        return new %s(".formatted(record.getSimpleName()));
+        out.print(recordComponents.stream()
+                .map(o -> o.getSimpleName())
+                .collect(Collectors.joining(", ")));
+        out.println(");");
+        out.println("    }");
+        out.println();
+    }
+
+    private void renderBuilderInitializer(String className, PrintWriter out) {
+        out.println("""
+                    public static %s builder() {
+                        return new %s();
+                    }
+                """.formatted(className, className));
+    }
+
+    private void renderFields(List<Element> recordComponents, PrintWriter out) {
+        recordComponents.forEach(element -> out.println("   private " + element.asType().toString() + " " + element.getSimpleName() + ";"));
+        out.println();
     }
 
 }
