@@ -11,10 +11,17 @@ import javax.lang.model.element.TypeElement;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * This class is used to process the {@code de.javahippie.recordbuilders.annotation.Builder} annotation. It will create a builder class for
+ * every record on the classpath that is annotated with that annotation.
+ */
 @SupportedAnnotationTypes("de.javahippie.recordbuilders.annotation.Builder")
 @SupportedSourceVersion(SourceVersion.RELEASE_14)
 public class RecordBuilder extends AbstractProcessor {
@@ -53,18 +60,36 @@ public class RecordBuilder extends AbstractProcessor {
         try (PrintWriter out = new PrintWriter(builderFile.openWriter())) {
             out.println("package %s;".formatted(packageName));
             out.println();
-            out.println("import %s;".formatted(record.asType().toString()));
-            out.println();
+            renderDocumentationHeader(record.toString(), out);
             out.println("public class %s {".formatted(className));
             out.println();
-
             renderFields(recordComponents, out);
+            renderPrivateConstructor(className, out);
             renderBuilderInitializer(className, out);
             renderBuildMethod(record, recordComponents, out);
             renderBuilderMethods(className, recordComponents, out);
 
             out.print("}");
         }
+    }
+
+    private void renderDocumentationHeader(String recordName, PrintWriter out) {
+        out.println("""
+                /**
+                 * This class is an implementation of the builder pattern for the record %s.
+                 * It was automatically generated on %s in timezone %s.
+                 */
+                """.formatted(recordName, LocalDateTime.now(ZoneId.systemDefault())
+                        .format(DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                ZoneId.systemDefault().toString()));
+    }
+
+    private void renderPrivateConstructor(String className, PrintWriter out) {
+        out.println("""
+                    private %s() {
+                        //Instances of this class should be created with the static method 'build()', not the constructor
+                    }
+                """.formatted(className));
     }
 
     private void renderBuilderMethods(String className, List<Element> recordComponents, PrintWriter out) {
@@ -105,7 +130,7 @@ public class RecordBuilder extends AbstractProcessor {
     }
 
     private void renderFields(List<Element> recordComponents, PrintWriter out) {
-        recordComponents.forEach(element -> out.println("   private " + element.asType().toString() + " " + element.getSimpleName() + ";"));
+        recordComponents.forEach(element -> out.println("    private " + element.asType().toString() + " " + element.getSimpleName() + ";"));
         out.println();
     }
 
