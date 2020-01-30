@@ -8,14 +8,13 @@
         <groupId>de.javahippie.jukebox</groupId>
         <artifactId>parent</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../pom.xml</relativePath>
     </parent>
 
     <artifactId>testtool</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>de.javahippie.recordbuilders</groupId>
+            <groupId>de.javahippie.jukebox</groupId>
             <artifactId>processor</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
