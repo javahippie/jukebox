@@ -1,3 +1,6 @@
+![Java CI](https://github.com/javahippie/jukebox/workflows/Java%20CI/badge.svg)
+
+
 # Jukebox
 
 _"Oh, let that jukebox keep on playin'_ \
