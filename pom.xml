@@ -22,9 +22,22 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
+                    <compilerArgs>
+                        <arg>--enable-preview</arg>
+                    </compilerArgs>
                     <source>14</source>
                     <target>14</target>
                     <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.0.0-M4</version>
+                <configuration>
+                    <forkCount>0</forkCount>
+                    <reuseForks>false</reuseForks>
+                    <reportsDirectory>target/surefire-reports-${surefire.forkNumber}</reportsDirectory>
                 </configuration>
             </plugin>
         </plugins>
