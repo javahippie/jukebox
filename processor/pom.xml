@@ -7,11 +7,37 @@
     <parent>
         <groupId>de.javahippie.jukebox</groupId>
         <artifactId>parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.1</version>
     </parent>
 
     <artifactId>processor</artifactId>
     <packaging>jar</packaging>
+    <name>Jukebox</name>
+    <description>An annotation processor to create builder classes for JEP 359 Records (Preview)</description>
+
+    <url>https://github.com/javahippie/jukebox</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/javahippie/jukebox</url>
+        <connection>scm:git:https://github.com/javahippie/jukebox.git</connection>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Tim Zöller</name>
+            <email>mail@tim-zoeller.de</email>
+            <organization>ilum:e informatik ag</organization>
+            <organizationUrl>http://www.ilume.de</organizationUrl>
+        </developer>
+    </developers>
 
     <build>
         <plugins>
