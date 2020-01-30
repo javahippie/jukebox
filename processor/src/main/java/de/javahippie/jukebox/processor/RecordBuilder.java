@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * This class is used to process the {@code de.javahippie.recordbuilders.annotation.Builder} annotation. It will create a builder class for
  * every record on the classpath that is annotated with that annotation.
  */
-@SupportedAnnotationTypes("de.javahippie.recordbuilders.annotation.Builder")
+@SupportedAnnotationTypes("de.javahippie.jukebox.annotation.Builder")
 @SupportedSourceVersion(SourceVersion.RELEASE_14)
 public class RecordBuilder extends AbstractProcessor {
 
