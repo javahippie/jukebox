@@ -1,5 +1,9 @@
-# Record Builder
-This is a naively written annotation processor to generate builder classes for the Java 14 preview feature records (JEP 359).
+# Jukebox
+
+_"Oh, let that jukebox keep on playin'_ \
+ _Let that record roll around"_ - Carl Perkins
+
+This is a annotation processor to generate builder classes for the Java 14 preview feature records (JEP 359).
 I had this idea when I compared Java records to Kotlins data classes and realized, that creating Java records with many 
 record components would get confusing to the reader rather soon. If we would like to use records to represent a game between two people, the definitions would look like this:
 
@@ -70,8 +74,6 @@ public record Game(
 
 ```java
 package de.javahippie.jukebox.testtool;
-
-import de.javahippie.jukebox.testtool.Person;
 
 public class PersonBuilder {
 
