@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
  *
  * As an example, the following record can be built like this:
  * <pre>{@code
- * @Builder
+ * {@literal @}Builder
  * public record Person(
  *          String firstName,
  *          String lastName,
