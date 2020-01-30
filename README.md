@@ -69,9 +69,9 @@ public record Game(
 
 
 ```java
-package de.javahippie.recordbuilders.testtool;
+package de.javahippie.jukebox.testtool;
 
-import de.javahippie.recordbuilders.testtool.Person;
+import de.javahippie.jukebox.testtool.Person;
 
 public class PersonBuilder {
 

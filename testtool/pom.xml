@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>de.javahippie.recordbuilders</groupId>
+    <groupId>de.javahippie.jukebox</groupId>
     <artifactId>testtool</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -32,7 +32,7 @@
                     <encoding>UTF-8</encoding>
                     <generatedSourcesDirectory>${project.build.directory}/generated-sources/</generatedSourcesDirectory>
                     <annotationProcessors>
-                        <annotationProcessor>de.javahippie.recordbuilders.processor.RecordBuilder</annotationProcessor>
+                        <annotationProcessor>de.javahippie.jukebox.processor.RecordBuilder</annotationProcessor>
                     </annotationProcessors>
                 </configuration>
             </plugin>
@@ -60,7 +60,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>de.javahippie.recordbuilders.testtool.TestGround</mainClass>
+                            <mainClass>de.javahippie.jukebox.testtool.TestGround</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

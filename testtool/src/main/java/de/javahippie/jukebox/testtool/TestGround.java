@@ -1,4 +1,4 @@
-package de.javahippie.recordbuilders.testtool;
+package de.javahippie.jukebox.testtool;
 
 import java.time.LocalDate;
 

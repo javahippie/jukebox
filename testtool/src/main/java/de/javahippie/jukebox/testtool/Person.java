@@ -1,6 +1,6 @@
-package de.javahippie.recordbuilders.testtool;
+package de.javahippie.jukebox.testtool;
 
-import de.javahippie.recordbuilders.annotation.Builder;
+import de.javahippie.jukebox.annotation.Builder;
 import java.time.LocalDate;
 
 @Builder

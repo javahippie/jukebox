@@ -1,4 +1,4 @@
-package de.javahippie.recordbuilders.annotation;
+package de.javahippie.jukebox.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;

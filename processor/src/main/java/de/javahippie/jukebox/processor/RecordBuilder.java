@@ -1,4 +1,4 @@
-package de.javahippie.recordbuilders.processor;
+package de.javahippie.jukebox.processor;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
