@@ -151,6 +151,13 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                            <passphraseServerId>${gpg.keyname}</passphraseServerId>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
