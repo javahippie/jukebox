@@ -4,18 +4,25 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>net.javahippie.jukebox</groupId>
-        <artifactId>parent</artifactId>
-        <version>0.1</version>
-    </parent>
-
+    <groupId>net.javahippie.jukebox</groupId>
+    <version>0.1-SNAPSHOT</version>
     <artifactId>processor</artifactId>
     <packaging>jar</packaging>
     <name>Jukebox</name>
     <description>An annotation processor to create builder classes for JEP 359 Records (Preview)</description>
 
     <url>https://github.com/javahippie/jukebox</url>
+
+    <properties>
+        <version.maven.plugin.compiler>3.8.1</version.maven.plugin.compiler>
+        <version.maven.plugin.source>2.2.1</version.maven.plugin.source>
+        <version.maven.plugin.javadoc>3.1.1</version.maven.plugin.javadoc>
+        <version.maven.pugin.surefire>3.0.0-M4</version.maven.pugin.surefire>
+        <version.maven.plugin.deploy>2.8.2</version.maven.plugin.deploy>
+        <version.maven.plugin.release>2.5.3</version.maven.plugin.release>
+        <version.maven.plugin.gpg>1.6</version.maven.plugin.gpg>
+        <version.sonatype.plugin.staging>1.6.7</version.sonatype.plugin.staging>
+    </properties>
 
     <licenses>
         <license>
@@ -27,7 +34,7 @@
 
     <scm>
         <url>https://github.com/javahippie/jukebox</url>
-        <connection>scm:git:https://github.com/javahippie/jukebox.git</connection>
+        <connection>scm:git:git@github.com:javahippie/jukebox.git</connection>
     </scm>
 
     <developers>
@@ -44,7 +51,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${version.maven.plugin.compiler}</version>
                 <configuration>
                     <compilerArgs>
                         <arg>--enable-preview</arg>
@@ -57,7 +64,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>2.2.1</version>
+                <version>${version.maven.plugin.source}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -70,7 +77,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.1.1</version>
+                <version>${version.maven.plugin.javadoc}</version>
                 <configuration>
                     <additionalJOptions>
                         <additionalJOption>--enable-preview</additionalJOption>
@@ -87,8 +94,80 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${version.maven.plugin.release}</version>
+                <configuration>
+                    <localCheckout>true</localCheckout>
+                    <pushChanges>false</pushChanges>
+                    <mavenExecutorId>forked-path</mavenExecutorId>
+                    <arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.apache.maven.scm</groupId>
+                        <artifactId>maven-scm-provider-gitexe</artifactId>
+                        <version>1.9.5</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>${version.sonatype.plugin.staging}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 
+
+    <profiles>
+        <!-- GPG Signature on release -->
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${version.maven.plugin.gpg}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
+            </url>
+        </repository>
+    </distributionManagement>
 
 </project>

@@ -9,10 +9,39 @@
     <version>0.1</version>
     <packaging>pom</packaging>
 
+    <properties>
+        <version.maven.plugin.compiler>3.8.1</version.maven.plugin.compiler>
+        <version.maven.pugin.surefire>3.0.0-M4</version.maven.pugin.surefire>
+    </properties>
+
     <modules>
         <module>processor</module>
         <module>testtool</module>
     </modules>
+
+    <url>https://github.com/javahippie/jukebox</url>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/javahippie/jukebox</url>
+        <connection>scm:git:git@github.com:javahippie/jukebox.git</connection>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Tim Zöller</name>
+            <email>mail@tim-zoeller.de</email>
+            <organization>ilum:e informatik ag</organization>
+            <organizationUrl>http://www.ilume.de</organizationUrl>
+        </developer>
+    </developers>
 
 
     <build>
@@ -20,7 +49,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${version.maven.plugin.compiler}</version>
                 <configuration>
                     <compilerArgs>
                         <arg>--enable-preview</arg>
@@ -33,7 +62,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.0.0-M4</version>
+                <version>${version.maven.pugin.surefire}</version>
                 <configuration>
                     <forkCount>0</forkCount>
                     <reuseForks>false</reuseForks>
@@ -42,6 +71,5 @@
             </plugin>
         </plugins>
     </build>
-
 
 </project>
