@@ -1,4 +1,4 @@
-package de.javahippie.jukebox.processor;
+package net.javahippie.jukebox.processor;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
@@ -19,10 +19,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * This class is used to process the {@code de.javahippie.recordbuilders.annotation.Builder} annotation. It will create a builder class for
+ * This class is used to process the {@code net.javahippie.recordbuilders.annotation.Builder} annotation. It will create a builder class for
  * every record on the classpath that is annotated with that annotation.
  */
-@SupportedAnnotationTypes("de.javahippie.jukebox.annotation.Builder")
+@SupportedAnnotationTypes("net.javahippie.jukebox.annotation.Builder")
 @SupportedSourceVersion(SourceVersion.RELEASE_14)
 public class RecordBuilder extends AbstractProcessor {
 

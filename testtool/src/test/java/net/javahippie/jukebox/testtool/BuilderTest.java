@@ -1,4 +1,4 @@
-package de.javahippie.jukebox.testtool;
+package net.javahippie.jukebox.testtool;
 
 import org.junit.jupiter.api.Test;
 

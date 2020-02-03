@@ -1,6 +1,6 @@
-package de.javahippie.jukebox.testtool;
+package net.javahippie.jukebox.testtool;
 
-import de.javahippie.jukebox.annotation.Builder;
+import net.javahippie.jukebox.annotation.Builder;
 
 @Builder
 public record Game(

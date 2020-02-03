@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>de.javahippie.jukebox</groupId>
+        <groupId>net.javahippie.jukebox</groupId>
         <artifactId>parent</artifactId>
         <version>0.1</version>
     </parent>
@@ -14,7 +14,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>de.javahippie.jukebox</groupId>
+            <groupId>net.javahippie.jukebox</groupId>
             <artifactId>processor</artifactId>
             <version>0.1</version>
         </dependency>
@@ -42,7 +42,7 @@
                     <encoding>UTF-8</encoding>
                     <generatedSourcesDirectory>${project.build.directory}/generated-sources/</generatedSourcesDirectory>
                     <annotationProcessors>
-                        <annotationProcessor>de.javahippie.jukebox.processor.RecordBuilder</annotationProcessor>
+                        <annotationProcessor>net.javahippie.jukebox.processor.RecordBuilder</annotationProcessor>
                     </annotationProcessors>
                 </configuration>
             </plugin>

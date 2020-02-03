@@ -57,7 +57,7 @@ GameBuilder.builder()
 
 Luckily, we are able to access the records and its components in a structured way, which enables us 
 to implement an annotation processor, which automatically generates those builders for us. If any record in our project is
-annotated with `@de.javahippie.recordbuilders.annotation.Builder`, the annotation processor will pick it up and generate a builder class in the following style:
+annotated with `@net.javahippie.recordbuilders.annotation.Builder`, the annotation processor will pick it up and generate a builder class in the following style:
 ```java
 @Builder
 public record Person(
@@ -76,7 +76,7 @@ public record Game(
 
 
 ```java
-package de.javahippie.jukebox.testtool;
+package net.javahippie.jukebox.testtool;
 
 public class PersonBuilder {
 
