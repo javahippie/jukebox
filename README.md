@@ -1,5 +1,5 @@
 ![Java CI](https://github.com/javahippie/jukebox/workflows/Java%20CI/badge.svg)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/net.javahippie.jukebox/processor/badge.svg)](https://maven-badges.herokuapp.com/maven-central/net.javahippie.jukebox/processor)
+[![Maven Central](https://img.shields.io/maven-central/v/net.javahippie.jukebox/processor.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22net.javahippie.jukebox%22%20AND%20a:%22processor%22)
 
 # Jukebox
 
