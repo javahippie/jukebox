@@ -96,13 +96,13 @@ public class RecordBuilder extends AbstractProcessor {
         recordComponents
                 .forEach(component -> {
                     out.println("""
-                                public %s with%s(%s %s) {
+                                public %s %s(%s %s) {
                                     this.%s = %s;
                                     return this;
                                 }
                             """.formatted(
                             className,
-                            component.getSimpleName().toString().substring(0, 1).toUpperCase() + component.getSimpleName().toString().substring(1),
+                            component.getSimpleName(),
                             component.asType().toString(),
                             component.getSimpleName(),
                             component.getSimpleName(),

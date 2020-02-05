@@ -6,6 +6,7 @@
 _"Oh, let that jukebox keep on playin'_ \
  _Let that record roll around"_ - Carl Perkins
 
+## Usage
 This is a annotation processor to generate builder classes for the Java 14 preview feature records (JEP 359). You can get it from Maven Central:
 
 ```xml
@@ -15,6 +16,33 @@ This is a annotation processor to generate builder classes for the Java 14 previ
     <version>0.1</version>
 </dependency>
 ``` 
+
+Include the dependency and reference the class `net.javahippie.jukebox.processor.RecordBuilder` in the Maven Compiler Plugin like this:
+
+```xml
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>
+    <version>3.8.1</version>
+    <configuration>
+        <compilerArgs>
+            <arg>--enable-preview</arg>
+        </compilerArgs>
+        <source>14</source>
+        <target>14</target>
+        <encoding>UTF-8</encoding>
+        <generatedSourcesDirectory>${project.build.directory}/generated-sources/</generatedSourcesDirectory>
+        <annotationProcessors>
+            <annotationProcessor>net.javahippie.jukebox.processor.RecordBuilder</annotationProcessor>
+        </annotationProcessors>
+    </configuration>
+</plugin>
+``` 
+
+After doing this, the library will generate a builder class for any record annotated with the annotation `net.javahippie.jukebox.annotation.Builder`.
+
+
+## Intention
 
 I had this idea when I compared Java records to Kotlins data classes and realized, that creating Java records with many 
 record components would get confusing to the reader rather soon. If we would like to use records to represent a game between two people, the definitions would look like this:
@@ -47,20 +75,20 @@ As we do not have named parameters in Java, as we have in Kotlin, the builder pa
 
 ```java
 GameBuilder.builder()
-            .withPlayer1(PersonBuilder.builder()
-                    .withFirstName("Rüdiger")
-                    .withLastName("Behrens")
-                    .withBirthDate(LocalDate.of(1982, 3, 17))
-                    .withHeightInCentimeters(186)
+            player1(PersonBuilder.builder()
+                    firstName("Rüdiger")
+                    lastName("Behrens")
+                    birthDate(LocalDate.of(1982, 3, 17))
+                    heightInCentimeters(186)
                     .build())
-            .withPlayer2(PersonBuilder.builder()
-                    .withFirstName("Frank")
-                    .withLastName("Meier")
-                    .withBirthDate(LocalDate.of(1990, 2, 2))
-                    .withHeightInCentimeters(170)
+            Player2(PersonBuilder.builder()
+                    firstName("Frank")
+                    lastName("Meier")
+                    birthDate(LocalDate.of(1990, 2, 2))
+                    heightInCentimeters(170)
                     .build())
-            .withPointsPlayer1(10)
-            .withPointsPlayer2(20)
+            pointsPlayer1(10)
+            pointsPlayer2(20)
             .build();
 ```
 
@@ -102,22 +130,22 @@ public class PersonBuilder {
         return new Person(firstName, lastName, birthDate, heightInCentimeters);
     }
 
-    public PersonBuilder withFirstName(java.lang.String firstName) {
+    public PersonBuilder firstName(java.lang.String firstName) {
         this.firstName = firstName;
         return this;
     }
 
-    public PersonBuilder withLastName(java.lang.String lastName) {
+    public PersonBuilder lastName(java.lang.String lastName) {
         this.lastName = lastName;
         return this;
     }
 
-    public PersonBuilder withBirthDate(java.time.LocalDate birthDate) {
+    public PersonBuilder birthDate(java.time.LocalDate birthDate) {
         this.birthDate = birthDate;
         return this;
     }
 
-    public PersonBuilder withHeightInCentimeters(int heightInCentimeters) {
+    public PersonBuilder heightInCentimeters(int heightInCentimeters) {
         this.heightInCentimeters = heightInCentimeters;
         return this;
     }

@@ -24,20 +24,20 @@ public class BuilderTest {
     @Test
     public void testBuilderFields() {
         var game = GameBuilder.builder()
-                .withPlayer1(PersonBuilder.builder()
-                        .withFirstName(PERSON_1_FIRST_NAME)
-                        .withLastName(PERSON_1_LAST_NAME)
-                        .withBirthDate(PERSON_1_BIRTH_DATE)
-                        .withHeightInCentimeters(PERSON_1_HEIGHT)
+                .player1(PersonBuilder.builder()
+                        .firstName(PERSON_1_FIRST_NAME)
+                        .lastName(PERSON_1_LAST_NAME)
+                        .birthDate(PERSON_1_BIRTH_DATE)
+                        .heightInCentimeters(PERSON_1_HEIGHT)
                         .build())
-                .withPlayer2(PersonBuilder.builder()
-                        .withFirstName(PERSON_2_FIRST_NAME)
-                        .withLastName(PERSON_2_LAST_NAME)
-                        .withBirthDate(PERSON_2_BIRTH_DATE)
-                        .withHeightInCentimeters(PERSON_2_HEIGHT)
+                .player2(PersonBuilder.builder()
+                        .firstName(PERSON_2_FIRST_NAME)
+                        .lastName(PERSON_2_LAST_NAME)
+                        .birthDate(PERSON_2_BIRTH_DATE)
+                        .heightInCentimeters(PERSON_2_HEIGHT)
                         .build())
-                .withPointsPlayer1(PERSON_1_POINTS)
-                .withPointsPlayer2(PERSON_2_POINTS)
+                .pointsPlayer1(PERSON_1_POINTS)
+                .pointsPlayer2(PERSON_2_POINTS)
                 .build();
 
         assertEquals(PERSON_1_FIRST_NAME, game.player1().firstName());
@@ -56,10 +56,10 @@ public class BuilderTest {
     @Test
     public void testRecordValidation() {
         var personBuilder = PersonBuilder.builder()
-                .withFirstName(PERSON_1_FIRST_NAME)
-                .withLastName(PERSON_1_LAST_NAME)
-                .withBirthDate(PERSON_1_BIRTH_DATE)
-                .withHeightInCentimeters(0);
+                .firstName(PERSON_1_FIRST_NAME)
+                .lastName(PERSON_1_LAST_NAME)
+                .birthDate(PERSON_1_BIRTH_DATE)
+                .heightInCentimeters(0);
 
         assertThrows(IllegalArgumentException.class, personBuilder::build);
     }
