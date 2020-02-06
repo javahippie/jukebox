@@ -13,7 +13,7 @@ This is a annotation processor to generate builder classes for the Java 14 previ
 <dependency>
     <groupId>net.javahippie.jukebox</groupId>
     <artifactId>processor</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
 </dependency>
 ``` 
 

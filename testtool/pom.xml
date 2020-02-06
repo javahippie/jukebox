@@ -7,7 +7,7 @@
     <parent>
         <groupId>net.javahippie.jukebox</groupId>
         <artifactId>parent</artifactId>
-        <version>0.2-SNAPSHOT</version>
+        <version>0.3-SNAPSHOT</version>
     </parent>
 
     <artifactId>testtool</artifactId>
@@ -16,7 +16,7 @@
         <dependency>
             <groupId>net.javahippie.jukebox</groupId>
             <artifactId>processor</artifactId>
-            <version>0.2-SNAPSHOT</version>
+            <version>0.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
