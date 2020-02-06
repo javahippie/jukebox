@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.javahippie.jukebox</groupId>
-    <version>0.2</version>
+    <version>0.3-SNAPSHOT</version>
     <artifactId>processor</artifactId>
     <packaging>jar</packaging>
     <name>Jukebox</name>
@@ -33,7 +33,7 @@
     <scm>
         <url>https://github.com/javahippie/jukebox</url>
         <connection>scm:git:git@github.com:javahippie/jukebox.git</connection>
-      <tag>processor-0.2</tag>
+      <tag>HEAD</tag>
   </scm>
 
     <developers>
